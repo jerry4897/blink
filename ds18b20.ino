@@ -1,21 +1,31 @@
-const char* host = "api.thingspeak.com";
-String url = "/update?api_key=H6YJBAB6J82QY153";   // Your Own Key here
+//const char* host = "api.thingspeak.com";
+//String url = "/update?api_key=H6YJBAB6J82QY153";   // Your Own Key here
+//const char* ssid = "KT_GiGA_2G_3ED2";   // Your own ssid here
+//const char* password = "fca1zg2399";  // Your own password here fca1zg2399
+
+const char* host = "maker.ifttt.com";
+String url = "/trigger/temp/with/key/d7_KiOg3TqkS18HjgZOVe";   // Your Own Key here
 const int httpPort = 80;
-int interval = 60000;
+int interval = 5000;
 #include<OneWire.h>
 #include<DallasTemperature.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
 #define ONE_WIRE_BUS D4
 
-const char* ssid = "KT_GiGA_2G_3ED2";   // Your own ssid here
-const char* password = "fca1zg2399";  // Your own password here fca1zg2399
+
+const char* ssid = "AndroidHotspot4011";   // Your own ssid here
+const char* password = "1234567890";  // Your own password here fca1zg2399
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature DS18B20(&oneWire);
 char temperatureString[6];
 
-String working(String data){
+/*String working(String data){
   return (String("field1=")+String(data));
+}*/
+
+String working(String data){
+  return (String("value1=") + String(data));
 }
 void delivering(String payload)
 {
@@ -29,7 +39,8 @@ void delivering(String payload)
     return;
   }
 
-  String getheader = "GET " + String(url) + "&" + String(payload) + " HTTP/1.1";
+  //String getheader = "GET " + String(url) + "&" + String(payload) + " HTTP/1.1";
+  String getheader = "GET " + String(url) + "?" + String(payload) + " HTTP/1.1";
   client.println(getheader);
   client.println("User-Agent: ESP8266 SukHwan Kim");
   client.println("Host: " + String(host));
